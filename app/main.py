@@ -1,5 +1,5 @@
 class SoftwareEngineer:
-    def __init__(self, name: str, **kwargs) -> None:
+    def __init__(self, name: str) -> None:
         self.name = name
         self.skills = []
 
@@ -8,14 +8,9 @@ class SoftwareEngineer:
 
 
 class FrontendDeveloper(SoftwareEngineer):
-    def __init__(
-            self,
-            name: str,
-            skills=None,  # noqa: ANN001
-            **kwargs
-    ) -> None:
-        super().__init__(name, **kwargs)
-        self.skills = skills or ["JavaScript", "HTML", "CSS"]
+    def __init__(self, name: str) -> None:  # ← без skills і **kwargs
+        super().__init__(name)
+        self.skills.extend(["JavaScript", "HTML", "CSS"])
 
     def create_awesome_web_page(self) -> str:
         print(f"{self.name} is creating a webpage...")
@@ -23,9 +18,9 @@ class FrontendDeveloper(SoftwareEngineer):
 
 
 class BackendDeveloper(SoftwareEngineer):
-    def __init__(self, name: str, **kwargs) -> None:
-        super().__init__(name, **kwargs)
-        self.skills = ["Python", "SQL", "Django"]
+    def __init__(self, name: str) -> None:
+        super().__init__(name)
+        self.skills.extend(["Python", "SQL", "Django"])
 
     def create_powerful_api(self) -> str:
         print(f"{self.name} is creating an API...")
@@ -43,11 +38,8 @@ class AndroidDeveloper(SoftwareEngineer):
 
 
 class FullStackDeveloper(BackendDeveloper, FrontendDeveloper):
-    def __init__(self, name: str, skills=None) -> None:  # noqa: ANN001
-        super().__init__(name, skills=skills)
-        self.skills = sorted(set(
-            ["Python", "SQL", "Django"] + ["JavaScript", "HTML", "CSS"]
-        ))
+    def __init__(self, name: str) -> None:
+        super().__init__(name)
 
     def create_web_application(self) -> None:
         print(f"{self.name} started creating a web application...")
